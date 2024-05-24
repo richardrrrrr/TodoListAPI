@@ -1,6 +1,7 @@
 using TodoListAPI.Entity;
 using Microsoft.EntityFrameworkCore;
-
+using TodoListAPI.Interface;
+using TodoListAPI.Reporsitory;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,7 +12,7 @@ builder.Services.AddDbContext<ToDoListAPIDbcontext>
 	{
 		options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 	}); //³s±µ¦r¦ê
-
+builder.Services.AddScoped<IReporsitory, GetToDoListAPIReporsitory>();
 builder.Services.AddAutoMapper(typeof(Program));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

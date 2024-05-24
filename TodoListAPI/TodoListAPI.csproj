@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Interface\IReporsitory\" />
     <Folder Include="Interface\IService\" />
     <Folder Include="Interface\IControllers\" />
     <Folder Include="Service\" />

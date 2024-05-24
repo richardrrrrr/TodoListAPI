@@ -2,10 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using TodoListAPI.Dto;
 using TodoListAPI.Entity;
+using TodoListAPI.Interface;
 
 namespace TodoListAPI.Reporsitory
 {
-	public class GetToDoListAPIReporsitory
+	public class GetToDoListAPIReporsitory :IReporsitory
 	{
 		private readonly ToDoListAPIDbcontext _ToDoListAPIDbcontext;
 		private readonly IMapper _Mapper;
@@ -16,9 +17,15 @@ namespace TodoListAPI.Reporsitory
 			_Mapper = mapper;
 		}
 
-		public List<ToDoListDto> GetAllToDoListAPI()
+		public async Task<List<ToDoListDto>> GetToDoListAPIAsync(int id)
 		{
-			var ToDoLists = _ToDoListAPIDbcontext.ToDoList.ToList();  
+			var ToDoLists = await _ToDoListAPIDbcontext.ToDoLists
+													   .Where(item => item.UserId == id)
+													   .ToListAsync();
+			if (ToDoLists == null)
+			{
+				return null;
+			}
 			return _Mapper.Map<List<ToDoListDto>>(ToDoLists);  
 		}
 	}

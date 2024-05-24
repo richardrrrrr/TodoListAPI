@@ -4,8 +4,8 @@ namespace TodoListAPI.Entity
 {
 	public class ToDoListAPIDbcontext : DbContext
 	{
-		public DbSet<ToDoList> ToDoList { get; set; }
-		public DbSet<User> User { get; set; }
+		public DbSet<ToDoList> ToDoLists { get; set; }
+		public DbSet<User> Users { get; set; }
 
 		public ToDoListAPIDbcontext(DbContextOptions options) : base(options) 
 		{
