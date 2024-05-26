@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TodoListAPI.Interface;
+using TodoListAPI.Interface.IReporsitory;
 using TodoListAPI.Reporsitory;
 
 namespace TodoListAPI.Controllers
 {
-	[ApiController]
+    [ApiController]
 	[Route("[controller]")]
 	public class GetToDoListAPIController : ControllerBase
 	{
-		private readonly IReporsitory _Reporsitory;
-		public GetToDoListAPIController(IReporsitory reporsitory)
+		private readonly IGetToDoListAPIReporsitory _Reporsitory;
+		public GetToDoListAPIController(IGetToDoListAPIReporsitory reporsitory)
 		{
 			_Reporsitory = reporsitory;
 		}
