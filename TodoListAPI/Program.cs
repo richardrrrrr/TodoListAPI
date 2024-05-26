@@ -2,16 +2,44 @@ using TodoListAPI.Entity;
 using Microsoft.EntityFrameworkCore;
 using TodoListAPI.Reporsitory.ToDoList;
 using TodoListAPI.Interface.IReporsitory;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using TodoListAPI.Interface.IService;
+using TodoListAPI.Service;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddSingleton< IJWTService, JWTService>();
 builder.Services.AddControllers();
+//連接字串
 builder.Services.AddDbContext<ToDoListAPIDbcontext>
 	(options =>
 	{
 		options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-	}); //連接字串
+	}); 
+
+// 添加 JWT 驗證配置
+builder.Services.AddAuthentication(options =>
+{
+	options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+	options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+	var JwtConfig = builder.Configuration.GetSection("JwtConfig");
+	var SecretKey = JwtConfig["Key"];
+
+	options.TokenValidationParameters = new TokenValidationParameters
+	{
+		ValidateIssuerSigningKey = true,
+		IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretKey)),
+		ValidateIssuer = false,
+		ValidateAudience = false,
+		ClockSkew = TimeSpan.Zero
+	};
+});
+
 builder.Services.AddScoped<IGetToDoListAPIReporsitory, GetToDoListAPIReporsitory>();
 builder.Services.AddAutoMapper(typeof(Program));
 
