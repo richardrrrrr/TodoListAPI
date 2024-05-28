@@ -1,4 +1,5 @@
 ﻿using TodoListAPI.Dto;
+using TodoListAPI.Model;
 
 namespace TodoListAPI.Interface.IReporsitory
 {

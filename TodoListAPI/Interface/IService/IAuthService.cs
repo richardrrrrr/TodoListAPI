@@ -1,5 +1,7 @@
 ﻿using TodoListAPI.Dto;
 using TodoListAPI.Entity;
+using TodoListAPI.Model;
+using MyLoginRequest = TodoListAPI.Model.LoginRequest;
 
 namespace TodoListAPI.Interface.IService
 {
@@ -7,6 +9,6 @@ namespace TodoListAPI.Interface.IService
 	{
 		Task<string> GenerateTokenAsync(UserDto user);
 		Task<bool> ValidateTokenAsync(string token);
-		Task<UserDto> ValidateCredentials(string username, string password);
+		Task<UserDto> ValidateCredentials(MyLoginRequest loginRequest);
 	}
 }

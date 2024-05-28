@@ -1,14 +1,15 @@
 ﻿using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
-using TodoListAPI.Dto;
+using MyLoginRequest = TodoListAPI.Model.LoginRequest;
 using TodoListAPI.Interface.IService;
+using TodoListAPI.Dto;
+
 
 namespace TodoListAPI.Controllers
 {
-	public class LoginController
-	{
+	
 		[ApiController]
-		[Route("api/auth")]
+		[Route("api/[controller]")]
 		public class AuthController : ControllerBase
 		{
 			private readonly IAuthService _AuthService;
@@ -19,17 +20,20 @@ namespace TodoListAPI.Controllers
 			}
 
 			[HttpPost("login")]
-			public async Task<IActionResult> Login([FromBody] UserDto userDto)
+			public async Task<IActionResult> Login([FromBody] MyLoginRequest loginRequest)
 			{
-				var user = await _AuthService.ValidateCredentials(userDto.UserName, userDto.PasswordHash);
+			
+
+			var user = await _AuthService.ValidateCredentials(loginRequest);
 				if (user == null)
 				{
 					return Unauthorized();
 				}
+			
 
-				var token = _AuthService.GenerateTokenAsync(user);
+			var token = await _AuthService.GenerateTokenAsync(user);
 				return Ok(new { Token = token });
 			}
 		}
-	}
+	
 }

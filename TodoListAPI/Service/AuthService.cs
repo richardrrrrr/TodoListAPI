@@ -7,7 +7,8 @@ using TodoListAPI.Interface.IService;
 using System.Threading.Tasks;
 using TodoListAPI.Interface.IReporsitory;
 using TodoListAPI.Dto;
-
+using Microsoft.AspNetCore.Identity.Data;
+using MyLoginRequest = TodoListAPI.Model.LoginRequest;
 
 namespace TodoListAPI.Service
 {
@@ -20,6 +21,13 @@ namespace TodoListAPI.Service
 		{
 			_Configuration = configuration;
 			_UserAPIReporsitory = userAPIReporsitory;
+		}
+
+		public async Task<UserDto> ValidateCredentials(MyLoginRequest loginRequest)
+		{
+			// 身份驗證用戶
+			return await _UserAPIReporsitory.GetUsernameAndPassword(loginRequest.UserName, loginRequest.Password);
+			
 		}
 
 		public async Task<string> GenerateTokenAsync(UserDto user)
@@ -69,10 +77,7 @@ namespace TodoListAPI.Service
 			}			
 		}
 
-		public async Task<UserDto> ValidateCredentials(string UserName, string Password)
-		{
-			return await _UserAPIReporsitory.GetUsernameAndPassword(UserName, Password);
-		}
+		
 
 	}
 }

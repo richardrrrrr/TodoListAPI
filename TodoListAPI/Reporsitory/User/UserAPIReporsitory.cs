@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using TodoListAPI.Dto;
 using TodoListAPI.Entity;
 using TodoListAPI.Interface.IReporsitory;
+using TodoListAPI.Model;
 
 namespace TodoListAPI.Reporsitory.Account
 {

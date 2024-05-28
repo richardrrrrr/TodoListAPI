@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TodoListAPI.Interface.IReporsitory;
 using TodoListAPI.Reporsitory;
 
@@ -6,6 +7,7 @@ namespace TodoListAPI.Controllers.ToDoList
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class GetToDoListAPIController : ControllerBase
     {
         private readonly IGetToDoListAPIReporsitory _Reporsitory;
