@@ -5,18 +5,23 @@ using System.Text;
 using TodoListAPI.Entity;
 using TodoListAPI.Interface.IService;
 using System.Threading.Tasks;
+using TodoListAPI.Interface.IReporsitory;
+using TodoListAPI.Dto;
 
 
 namespace TodoListAPI.Service
 {
-	public class JWTService : IJWTService
+	public class AuthService : IAuthService
 	{
 		private readonly IConfiguration _Configuration;
+		private readonly IUserAPIReporsitory _UserAPIReporsitory;
 
-		public JWTService(IConfiguration configuration) 
+		public AuthService(IConfiguration configuration, IUserAPIReporsitory userAPIReporsitory) 
 		{
 			_Configuration = configuration;
+			_UserAPIReporsitory = userAPIReporsitory;
 		}
+
 		public async Task<string> GenerateTokenAsync(User user)
 		{
 			var SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_Configuration["Jwt:Key"]));
@@ -61,7 +66,12 @@ namespace TodoListAPI.Service
 			catch
 			{
 				return await Task.FromResult(false);
-			}
+			}			
+		}
+
+		public async Task<UserDto> ValidateCredentials(string username, string password)
+		{
+			return await _UserAPIReporsitory.GetUserByUsernameAndPassword(username, password);
 		}
 
 	}

@@ -7,10 +7,14 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using TodoListAPI.Interface.IService;
 using TodoListAPI.Service;
+using TodoListAPI.Service.Account;
+using TodoListAPI.Reporsitory.Account;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddSingleton< IJWTService, JWTService>();
+builder.Services.AddScoped< IAuthService, AuthService>();
+builder.Services.AddScoped<IUserAPIReporsitory, UserAPIReporsitory>();
+builder.Services.AddScoped<IUserAPIService, UserAPIService>();
 builder.Services.AddControllers();
 //³s±µ¦r¦ê
 builder.Services.AddDbContext<ToDoListAPIDbcontext>
@@ -27,7 +31,7 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
-	var JwtConfig = builder.Configuration.GetSection("JwtConfig");
+	var JwtConfig = builder.Configuration.GetSection("Jwt");
 	var SecretKey = JwtConfig["Key"];
 
 	options.TokenValidationParameters = new TokenValidationParameters

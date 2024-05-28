@@ -6,27 +6,26 @@ using TodoListAPI.Interface.IReporsitory;
 
 namespace TodoListAPI.Reporsitory.Account
 {
-    public class GetUserAPIReporsitory : IGetUserAPIReporsitory
+    public class UserAPIReporsitory : IUserAPIReporsitory
 	{
 		
 		private readonly ToDoListAPIDbcontext _ToDoListAPIDbcontext;
 		private readonly IMapper _Mapper;
-		public GetUserAPIReporsitory(ToDoListAPIDbcontext toDoListAPIDbcontext, IMapper mapper)
+		public UserAPIReporsitory(ToDoListAPIDbcontext toDoListAPIDbcontext, IMapper mapper)
 		{
 			_ToDoListAPIDbcontext = toDoListAPIDbcontext;
 			_Mapper = mapper;
 		}
 
-		public async Task<List<UserDto>> GetUserAPIAsync(int id)
+		public async Task<UserDto> GetUserByUsernameAndPassword(string UserName, string Password)
 		{
 			var GetUser = await _ToDoListAPIDbcontext.Users
-													 .Where(item => item.UserId == id)
-													 .ToListAsync();
+													 .FirstOrDefaultAsync(item => item.UserName == UserName && item.PasswordHash == Password);
 			if (GetUser == null)
 			{
 				return null;
 			}
-			return _Mapper.Map<List<UserDto>>(GetUser);
+			return _Mapper.Map<UserDto>(GetUser);
 		}
 	}
 }
