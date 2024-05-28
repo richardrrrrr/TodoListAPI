@@ -22,7 +22,7 @@ namespace TodoListAPI.Service
 			_UserAPIReporsitory = userAPIReporsitory;
 		}
 
-		public async Task<string> GenerateTokenAsync(User user)
+		public async Task<string> GenerateTokenAsync(UserDto user)
 		{
 			var SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_Configuration["Jwt:Key"]));
 			var Credentials = new SigningCredentials(SecurityKey, SecurityAlgorithms.HmacSha256);
@@ -69,9 +69,9 @@ namespace TodoListAPI.Service
 			}			
 		}
 
-		public async Task<UserDto> ValidateCredentials(string username, string password)
+		public async Task<UserDto> ValidateCredentials(string UserName, string Password)
 		{
-			return await _UserAPIReporsitory.GetUserByUsernameAndPassword(username, password);
+			return await _UserAPIReporsitory.GetUsernameAndPassword(UserName, Password);
 		}
 
 	}

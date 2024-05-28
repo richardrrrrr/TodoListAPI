@@ -7,14 +7,12 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using TodoListAPI.Interface.IService;
 using TodoListAPI.Service;
-using TodoListAPI.Service.Account;
 using TodoListAPI.Reporsitory.Account;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped< IAuthService, AuthService>();
 builder.Services.AddScoped<IUserAPIReporsitory, UserAPIReporsitory>();
-builder.Services.AddScoped<IUserAPIService, UserAPIService>();
 builder.Services.AddControllers();
 //³s±µ¦r¦ê
 builder.Services.AddDbContext<ToDoListAPIDbcontext>

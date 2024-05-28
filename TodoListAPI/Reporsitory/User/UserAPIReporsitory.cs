@@ -17,7 +17,7 @@ namespace TodoListAPI.Reporsitory.Account
 			_Mapper = mapper;
 		}
 
-		public async Task<UserDto> GetUserByUsernameAndPassword(string UserName, string Password)
+		public async Task<UserDto> GetUsernameAndPassword(string UserName, string Password)
 		{
 			var GetUser = await _ToDoListAPIDbcontext.Users
 													 .FirstOrDefaultAsync(item => item.UserName == UserName && item.PasswordHash == Password);
