@@ -7,10 +7,13 @@ using System.Text;
 using TodoListAPI.Interface.IService;
 using TodoListAPI.Service;
 using TodoListAPI.Reporsitory;
+using TodoListAPI.Interface;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped< IAuthService, AuthService>();
+builder.Services.AddScoped<IToDoListAPIService, ToDoListAPIService>();
+builder.Services.AddScoped<IToDoListAPIReporsitory, ToDoListAPIReporsitory>();
 builder.Services.AddScoped<IUserAPIReporsitory, UserAPIReporsitory>();
 builder.Services.AddControllers();
 //³s±µ¦r¦ê
@@ -41,7 +44,7 @@ builder.Services.AddAuthentication(options =>
 	};
 });
 
-builder.Services.AddScoped<TodoListAPI.Interface.IReporsitory.IToDoListAPIReporsitory, ToDoListAPIReporsitory>();
+
 builder.Services.AddAutoMapper(typeof(Program));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

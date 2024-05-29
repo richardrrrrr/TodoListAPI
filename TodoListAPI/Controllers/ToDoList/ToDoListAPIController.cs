@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using TodoListAPI.Dto;
 using TodoListAPI.Interface.IReporsitory;
+using TodoListAPI.Interface.IService;
 using TodoListAPI.Model;
 using TodoListAPI.Reporsitory;
+using TodoListAPI.Service;
 
 namespace TodoListAPI.Controllers.ToDoList
 {
@@ -12,17 +14,17 @@ namespace TodoListAPI.Controllers.ToDoList
     
     public class ToDoListAPIController : ControllerBase
     {
-        private readonly IToDoListAPIReporsitory _ToDoListAPIService;
-        public ToDoListAPIController(IToDoListAPIReporsitory reporsitory)
+        private readonly IToDoListAPIService _ToDoListAPIService;
+        public ToDoListAPIController(IToDoListAPIService toDoListAPIService)
         {
-            _ToDoListAPIService = reporsitory;
+            _ToDoListAPIService = toDoListAPIService;
         }
 
         [HttpGet("{UserId}")]
-        public async Task<IActionResult> GetToDoListAPI(int UserId)
+        public async Task<IActionResult> GetToDoListAPI(int UserId, int PageNumber = 1, int PageSize = 10)
         {
-            var GetById = await _ToDoListAPIService.GetToDoListAPIAsync(UserId);
-            if (GetById == null)
+            var GetById = await _ToDoListAPIService.GetAllToDoListsAsync(UserId, PageNumber, PageSize);
+            if (GetById == null || !GetById.Any())
             {
                 return NotFound();
             }
@@ -32,7 +34,7 @@ namespace TodoListAPI.Controllers.ToDoList
 		[HttpPost]
 		public async Task<IActionResult> CreateToDoListAPI([FromBody] CreateToDoList createToDoList)
 		{
-			var createdToDoList = await _ToDoListAPIService.CreateToDoListAPIAsync(createToDoList);
+			var createdToDoList = await _ToDoListAPIService.CreateToDoListAsync(createToDoList);
 			if (createdToDoList == null)
 			{
 				return BadRequest("Unable to create the to-do list.");
@@ -48,7 +50,7 @@ namespace TodoListAPI.Controllers.ToDoList
 				return BadRequest("ID mismatch in the request.");
 			}
 
-			var updatedToDoList = await _ToDoListAPIService.UpdateToDoListAPIAsync(UpdateToDoList);
+			var updatedToDoList = await _ToDoListAPIService.UpdateToDoListAsync(UpdateToDoList);
 			if (updatedToDoList == null)
 			{
 				return NotFound();
@@ -59,7 +61,7 @@ namespace TodoListAPI.Controllers.ToDoList
 		[HttpDelete("{ToDoId}")]
 		public async Task<IActionResult> DeleteToDoListAPI(int ToDoId)
 		{
-			var result = await _ToDoListAPIService.DeleteToDoListAPIAsync(ToDoId);
+			var result = await _ToDoListAPIService.DeleteToDoListAsync(ToDoId);
 			if (!result)
 			{
 				return NotFound();
