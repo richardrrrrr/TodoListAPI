@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <Folder Include="Controllers\User\" />
-    <Folder Include="Service\User\" />
   </ItemGroup>
 
 </Project>
