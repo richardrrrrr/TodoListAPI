@@ -52,16 +52,16 @@ namespace TodoListAPI.Reporsitory
             return _Mapper.Map<List<ToDoListDto>>(GetToDoList);
         }
 
-		public async Task<ToDoListDto> UpdateToDoListAPIAsync(ToDoListDto toDoListDto)
+		public async Task<ToDoListDto> UpdateToDoListAPIAsync(UpdateToDoList UpdateToDoList)
 		{
 			var ToDoList = await _ToDoListAPIDbcontext.ToDoLists
-													   .FirstOrDefaultAsync(t => t.ToDoId == toDoListDto.ToDoId);
+													   .FirstOrDefaultAsync(t => t.ToDoId == UpdateToDoList.ToDoId);
 			if (ToDoList == null)
 			{
 				return null;
 			}
 
-			_Mapper.Map(toDoListDto, ToDoList);
+			_Mapper.Map(UpdateToDoList, ToDoList);
 			_ToDoListAPIDbcontext.ToDoLists.Update(ToDoList);
 			await _ToDoListAPIDbcontext.SaveChangesAsync();
 			return _Mapper.Map<ToDoListDto>(ToDoList);

@@ -8,7 +8,7 @@ namespace TodoListAPI.Interface.IReporsitory
 
         Task<List<ToDoListDto>> GetToDoListAPIAsync(int id);
 		Task<ToDoListDto> CreateToDoListAPIAsync(CreateToDoList createToDoList);
-		Task<ToDoListDto> UpdateToDoListAPIAsync(ToDoListDto toDoListDto);
+		Task<ToDoListDto> UpdateToDoListAPIAsync(UpdateToDoList UpdateToDoList);
 		Task<bool> DeleteToDoListAPIAsync(int id);
 
 	}

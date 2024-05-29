@@ -7,7 +7,7 @@ namespace TodoListAPI.Interface.IService
 	{
 		Task<List<ToDoListDto>> GetAllToDoListsAsync(int userId);
 		Task<ToDoListDto> CreateToDoListAsync(CreateToDoList createToDoList);
-		Task<ToDoListDto> UpdateToDoListAsync(ToDoListDto toDoListDto);
+		Task<ToDoListDto> UpdateToDoListAsync(UpdateToDoList UpdateToDoList);
 		Task<bool> DeleteToDoListAsync(int id);
 	}
 }

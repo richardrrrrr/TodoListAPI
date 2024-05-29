@@ -30,9 +30,9 @@ namespace TodoListAPI.Service
 			return await _ToDoListAPIReporsitory.GetToDoListAPIAsync(userId);
 		}
 
-		public async Task<ToDoListDto> UpdateToDoListAsync(ToDoListDto toDoListDto)
+		public async Task<ToDoListDto> UpdateToDoListAsync(UpdateToDoList UpdateToDoList)
 		{
-			return await _ToDoListAPIReporsitory.UpdateToDoListAPIAsync(toDoListDto);
+			return await _ToDoListAPIReporsitory.UpdateToDoListAPIAsync(UpdateToDoList);
 		}
 	}
 }

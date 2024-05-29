@@ -13,6 +13,7 @@ namespace TodoListAPI.Interface.AutoMapper
             CreateMap<User, UserDto>();
             CreateMap<ToDoListDto, ToDoList>();
             CreateMap<CreateToDoList, ToDoList>();
+            CreateMap<UpdateToDoList, ToDoList>();
 		}
     }
 }

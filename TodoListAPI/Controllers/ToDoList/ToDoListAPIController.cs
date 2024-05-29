@@ -41,14 +41,14 @@ namespace TodoListAPI.Controllers.ToDoList
 		}
 
 		[HttpPut("{ToDoId}")]
-		public async Task<IActionResult> UpdateToDoListAPI(int ToDoId, [FromBody] ToDoListDto toDoListDto)
+		public async Task<IActionResult> UpdateToDoListAPI(int ToDoId, [FromBody] UpdateToDoList UpdateToDoList)
 		{
-			if (ToDoId != toDoListDto.ToDoId)
+			if (ToDoId != UpdateToDoList.ToDoId)
 			{
 				return BadRequest("ID mismatch in the request.");
 			}
 
-			var updatedToDoList = await _ToDoListAPIService.UpdateToDoListAPIAsync(toDoListDto);
+			var updatedToDoList = await _ToDoListAPIService.UpdateToDoListAPIAsync(UpdateToDoList);
 			if (updatedToDoList == null)
 			{
 				return NotFound();
