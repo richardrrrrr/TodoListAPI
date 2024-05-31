@@ -43,7 +43,7 @@ namespace TodoListAPI.Reporsitory
 		public async Task<List<ToDoListDto>> GetToDoListAPIAsync(int id)
         {
             var GetToDoList = await _ToDoListAPIDbcontext.ToDoLists
-                                                       .Where(item => item.UserId == id)
+                                                       .Where(item => item.UserId == id && !item.IsDeleted)
                                                        .ToListAsync();
             if (GetToDoList == null)
             {

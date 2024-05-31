@@ -13,5 +13,6 @@ namespace TodoListAPI.Dto
 		public DateTime CreatedAt { get; set; }
 		public DateTime UpdatedAt { get; set; }
 		public PriorityLevel Priority { get; set; }
+		public bool IsDeleted { get; set; }
 	}
 }
