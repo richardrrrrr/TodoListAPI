@@ -28,7 +28,8 @@ namespace TodoListAPI.Service
 		public  async Task<List<ToDoListDto>> GetAllToDoListsAsync(int userId, int PageNumber, int PageSize)
 		{
 			var ToDoLists =  await _ToDoListAPIReporsitory.GetToDoListAPIAsync(userId);
-			return ToDoLists.OrderBy(item =>item.CreatedAt)
+			return ToDoLists.OrderByDescending(item =>item.Priority)// 先按優先級降序排序
+							.ThenBy(item =>item.CreatedAt)// 同一優先級內按創建時間升序排
 							.Skip((PageNumber-1) * PageSize)
 							.Take(PageSize)
 							.ToList();

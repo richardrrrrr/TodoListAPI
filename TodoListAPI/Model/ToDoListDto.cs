@@ -1,4 +1,6 @@
-﻿namespace TodoListAPI.Dto
+﻿using TodoListAPI.Entity;
+
+namespace TodoListAPI.Dto
 {
 	public class ToDoListDto
 	{
@@ -10,5 +12,6 @@
 		public DateTime? DueDate { get; set; }
 		public DateTime CreatedAt { get; set; }
 		public DateTime UpdatedAt { get; set; }
+		public PriorityLevel Priority { get; set; }
 	}
 }
